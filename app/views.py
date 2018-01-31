@@ -8,6 +8,9 @@ import os
 from app import app
 from flask import render_template, request, redirect, url_for, flash, session, abort
 from werkzeug.utils import secure_filename
+
+# Note: that when using Flask-WTF we need to import the Form Class that we created
+# in forms.py
 from forms import MyForm
 
 
@@ -42,17 +45,30 @@ def wtform():
 
     if request.method == 'POST':
         if myform.validate_on_submit():
+            # Note the difference when retrieving form data using Flask-WTF
+            # Here we use myform.firstname.data instead of request.form['firstname']
             firstname = myform.firstname.data
             lastname = myform.lastname.data
             email = myform.email.data
 
+            flash('You have successfully filled out the form', 'success')
             return render_template('result.html', firstname=firstname, lastname=lastname, email=email)
 
+        flash_errors(myform)
     return render_template('wtform.html', form=myform)
 
 ###
 # The functions below should be applicable to all Flask apps.
 ###
+
+# Flash errors from the form if validation fails
+def flash_errors(form):
+    for field, errors in form.errors.items():
+        for error in errors:
+            flash(u"Error in the %s field - %s" % (
+                getattr(form, field).label.text,
+                error
+            ), 'danger')
 
 @app.route('/<file_name>.txt')
 def send_text_file(file_name):
@@ -68,7 +84,7 @@ def add_header(response):
     and also to cache the rendered page for 10 minutes.
     """
     response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
-    response.headers['Cache-Control'] = 'public, max-age=600'
+    response.headers['Cache-Control'] = 'public, max-age=0'
     return response
 
 
