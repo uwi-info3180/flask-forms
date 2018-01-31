@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
 {% block main %}
-    <h2>Home</h2>
+    <h2>Form Examples</h2>
+    <p>The following are basic examples of how to create and process forms using the default Flask form handling and also the Flask-WTF library.</p>
+    <ul>
+        <li><a href="{{ url_for('basic_form') }}">Basic Form Example</a></li>
+        <li><a href="{{ url_for('wtform') }}">Flask-WTF Example</a></li>
+        <li><a href="{{ url_for('photo_upload') }}">File Upload Example</a></li>
+    </ul>
 {% endblock %}
