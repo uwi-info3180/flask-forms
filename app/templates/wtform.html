@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <h2>WTForms in Flask</h2>
+
+    <form method="post" action="{{ url_for('wtform') }}">
+        {{ form.csrf_token }}
+        <div class="form-group">
+            {{ form.firstname.label }} {{ form.firstname(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.lastname.label }} {{ form.lastname(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.email.label }} {{ form.email(class="form-control", placeholder="jdoe@example.com") }}
+        </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
