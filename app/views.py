@@ -11,7 +11,7 @@ from werkzeug.utils import secure_filename
 
 # Note: that when using Flask-WTF we need to import the Form Class that we created
 # in forms.py
-from forms import MyForm
+from forms import MyForm, PhotoForm
 
 
 ###
@@ -56,6 +56,26 @@ def wtform():
 
         flash_errors(myform)
     return render_template('wtform.html', form=myform)
+
+
+@app.route('/photo-upload', methods=['GET', 'POST'])
+def photo_upload():
+    photoform = PhotoForm()
+
+    if request.method == 'POST' and photoform.validate_on_submit():
+
+        photo = photoform.photo.data # we could also use request.files['photo']
+        description = photoform.description.data
+
+        filename = secure_filename(photo.filename)
+        photo.save(os.path.join(
+            app.config['UPLOAD_FOLDER'], filename
+        ))
+
+        return render_template('display_photo.html', filename=filename, description=description)
+
+    flash_errors(photoform)
+    return render_template('photo_upload.html', form=photoform)
 
 ###
 # The functions below should be applicable to all Flask apps.
