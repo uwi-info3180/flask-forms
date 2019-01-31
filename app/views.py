@@ -11,7 +11,7 @@ from werkzeug.utils import secure_filename
 
 # Note: that when using Flask-WTF we need to import the Form Class that we created
 # in forms.py
-from forms import MyForm, PhotoForm
+from .forms import MyForm, PhotoForm
 
 
 ###
