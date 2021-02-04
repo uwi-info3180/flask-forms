@@ -3,4 +3,7 @@
 {% block main %}
     <h2>{{ description }}</h2>
     <img src="{{ url_for('static', filename="uploads/" + filename) }}" />
+
+    {# Example usage of route for files not in static folder #}
+    <!-- <img src="{{ url_for('get_uploaded_file', filename=filename) }}" /> -->
 {% endblock %}

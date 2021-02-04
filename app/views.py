@@ -6,7 +6,7 @@ This file creates your application.
 """
 import os
 from app import app
-from flask import render_template, request, redirect, url_for, flash, session, abort
+from flask import render_template, request, redirect, url_for, flash, session, abort, send_from_directory
 from werkzeug.utils import secure_filename
 
 # Note: that when using Flask-WTF we need to import the Form Class that we created
@@ -76,6 +76,14 @@ def photo_upload():
 
     flash_errors(photoform)
     return render_template('photo_upload.html', form=photoform)
+
+# Example route using send_from_directory
+# for files that are not in the "static" folder
+@app.route("/uploads/<filename>")
+def get_uploaded_file(filename):
+    root_dir = os.getcwd()
+
+    return send_from_directory(os.path.join(root_dir, app.config['UPLOAD_FOLDER']), filename)
 
 ###
 # The functions below should be applicable to all Flask apps.
