@@ -3,17 +3,20 @@
 {% block main %}
     <h2>WTForms in Flask</h2>
     <p>Here we are using the Flask-WTF library to create and process a form. Flask-WTF also comes with CSRF protection and validation classes.</p>
-    <form method="post" action="{{ url_for('wtform') }}">
+    <form method="post" action="{{ url_for('wtform') }}" novalidate>
         {% include 'flash_messages.html' %}
         {{ form.csrf_token }}
-        <div class="form-group">
-            {{ form.firstname.label }} {{ form.firstname(class="form-control") }}
+        <div class="form-group mb-3">
+            {{ form.firstname.label(class="form-label") }} {{ form.firstname(class="form-control") }}
         </div>
-        <div class="form-group">
-            {{ form.lastname.label }} {{ form.lastname(class="form-control") }}
+        <div class="form-group mb-3">
+            {{ form.lastname.label(class="form-label") }} {{ form.lastname(class="form-control") }}
         </div>
-        <div class="form-group">
-            {{ form.email.label }} {{ form.email(class="form-control", placeholder="jdoe@example.com") }}
+        <div class="form-group mb-3">
+            {{ form.email.label(class="form-label") }} {{ form.email(class="form-control", placeholder="jdoe@example.com") }}
+        </div>
+        <div class="form-group mb-3">
+            {{ form.message.label(class="form-label") }} {{ form.message(class="form-control", rows="3") }}
         </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

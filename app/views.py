@@ -24,11 +24,13 @@ def basic_form():
         firstname = request.form['firstname']
         lastname = request.form['lastname']
         email = request.form['email']
+        message = request.form['message']
 
         return render_template('result.html',
                                firstname=firstname,
                                lastname=lastname,
-                               email=email)
+                               email=email,
+                               message=message)
 
     return render_template('form.html')
 
@@ -44,9 +46,14 @@ def wtform():
             firstname = myform.firstname.data
             lastname = myform.lastname.data
             email = myform.email.data
+            message = myform.message.data
 
             flash('You have successfully filled out the form', 'success')
-            return render_template('result.html', firstname=firstname, lastname=lastname, email=email)
+            return render_template('result.html',
+                                   firstname=firstname,
+                                   lastname=lastname,
+                                   email=email,
+                                   message=message)
 
         flash_errors(myform)
     return render_template('wtform.html', form=myform)
