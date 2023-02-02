@@ -1,13 +1,13 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms import StringField
-from wtforms.validators import DataRequired, Email
+from wtforms.validators import InputRequired, Email
 
 
 class MyForm(FlaskForm):
-    firstname = StringField('First Name', validators=[DataRequired()])
-    lastname = StringField('Last Name', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    firstname = StringField('First Name', validators=[InputRequired()])
+    lastname = StringField('Last Name', validators=[InputRequired()])
+    email = StringField('Email', validators=[InputRequired(), Email()])
 
 
 class PhotoForm(FlaskForm):
@@ -15,4 +15,4 @@ class PhotoForm(FlaskForm):
         FileRequired(),
         FileAllowed(['jpg', 'png', 'Images only!'])
     ])
-    description = StringField('Description', validators=[DataRequired()])
+    description = StringField('Description', validators=[InputRequired()])
