@@ -15,3 +15,7 @@ venv/
 
 # VS Code
 .vscode
+
+# Environment Variables
+.env
+.flaskenv
