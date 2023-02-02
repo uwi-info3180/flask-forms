@@ -1,9 +1,3 @@
-"""
-Flask Documentation:     http://flask.pocoo.org/docs/
-Jinja2 Documentation:    http://jinja.pocoo.org/2/documentation/
-Werkzeug Documentation:  http://werkzeug.pocoo.org/documentation/
-This file creates your application.
-"""
 import os
 from app import app
 from flask import render_template, request, redirect, url_for, flash, session, abort, send_from_directory
@@ -62,7 +56,7 @@ def wtform():
 def photo_upload():
     photoform = PhotoForm()
 
-    if request.method == 'POST' and photoform.validate_on_submit():
+    if photoform.validate_on_submit():
 
         photo = photoform.photo.data # we could also use request.files['photo']
         description = photoform.description.data
@@ -120,7 +114,3 @@ def add_header(response):
 def page_not_found(error):
     """Custom 404 page."""
     return render_template('404.html'), 404
-
-
-if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0", port="8080")
